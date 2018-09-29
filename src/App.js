@@ -42,9 +42,7 @@ class App extends Component {
   updateSelection = (event) => {
     event.preventDefault()
     let model = event.target.value
-    let state = this.state
     this.setState((state)=>({value:model}))
-    console.log(state)
 
   }
 //---------Step Three---------------
@@ -53,15 +51,19 @@ class App extends Component {
     let model = this.state
     let indexer = Object.keys(seedData).indexOf(model.value)
     let bundler = Object.values(seedData)
-    console.log(bundler)
     let bundle = bundler[indexer]
-    console.log(bundle)
     store.dispatch({
       type: 'ADD_MODEL',
       payload: {id:model.value, info: bundle}
     })
 //sends action to reducer.js not sure if this is allowed
   }
+//----------Step Four----------------
+  renderModel = () => {
+    let test = store.getState()
+    console.log(test)
+    return (<p>placeholder</p>)
+  }//unable to finish 
 
   render() {
     return (
@@ -71,6 +73,9 @@ class App extends Component {
           {seedList()}
         </select>
         <button onClick={this.addModel}>Add</button>
+        <div>
+          {this.renderModel()}
+        </div>
       </div>
     );
   }
